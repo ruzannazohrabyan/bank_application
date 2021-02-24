@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
@@ -52,5 +53,31 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public List<Transaction> getAll() {
         return (List<Transaction>) transactionRepository.findAll();
+    }
+
+    @Override
+    public List<Transaction> filterByDate(LocalDate date) {
+        return null;
+    }
+
+    @Override
+    public ResponseEntity<Transaction> changeStatus(int id) {
+        Optional<Transaction> transaction = transactionRepository.findById(id);
+        if(transaction.isPresent() && transaction.get().getStatus().equals("PENDING")){
+            Account account = transaction.get().getAccount();
+            if(transaction.get().getAction().equals("deposit")){
+                account.setBalance(account.getBalance() + account.getFrozenAmount());
+                account.setFrozenAmount(0);
+                transaction.get().setStatus("ACCEPTED");
+                transactionRepository.save(transaction.get());
+                return new ResponseEntity<>(transaction.get(), HttpStatus.OK);
+            } else if(transaction.get().getAction().equals("withdrawal")) {
+                account.setFrozenAmount(0);
+                transaction.get().setStatus("ACCEPTED");
+                transactionRepository.save(transaction.get());
+                return new ResponseEntity<>(transaction.get(), HttpStatus.OK);
+            }
+        }
+        return new ResponseEntity<>(transaction.get(),HttpStatus.NOT_FOUND);
     }
 }

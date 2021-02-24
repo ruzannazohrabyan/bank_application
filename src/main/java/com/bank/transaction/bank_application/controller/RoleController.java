@@ -29,6 +29,7 @@ public class RoleController {
         return roleServiceImpl.getById(id);
     }
 
+
     //POST /api/role  -- {"id": 1, "roleName": "ADMIN"} with this format save new Role
     @PostMapping
     public Role save(@RequestBody Role role) {

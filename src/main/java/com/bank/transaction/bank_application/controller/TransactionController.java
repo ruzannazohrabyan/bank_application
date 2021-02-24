@@ -5,6 +5,8 @@ import com.bank.transaction.bank_application.service.impl.TransactionServiceImpl
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/transaction")
 public class TransactionController {
@@ -37,7 +39,19 @@ public class TransactionController {
     }
      */
     @PostMapping
-    ResponseEntity<Transaction> save(@RequestBody Transaction transaction){
+    public ResponseEntity<Transaction> save(@RequestBody Transaction transaction){
         return transactionServiceImpl.save(transaction);
+    }
+
+    /*
+    /api/transaction/1
+     */
+    @PatchMapping("/{transactionId}")
+    public ResponseEntity<Transaction> changeStatus(@PathVariable int transactionId){
+        return transactionServiceImpl.changeStatus(transactionId);
+    }
+    @GetMapping
+    public List<Transaction> getAllTransaction(){
+        return transactionServiceImpl.getAll();
     }
 }

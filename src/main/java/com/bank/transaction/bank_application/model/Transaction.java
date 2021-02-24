@@ -1,9 +1,8 @@
 package com.bank.transaction.bank_application.model;
 
-import jdk.jfr.Category;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "transaction")
@@ -17,7 +16,7 @@ public class Transaction {
     private double amount;
     private String action;
     private String status;
-    private LocalDateTime dateTime = LocalDateTime.now();
+    private LocalDate date = LocalDate.now();
 
     public Transaction() {
     }
@@ -68,11 +67,11 @@ public class Transaction {
         this.status = status;
     }
 
-    public LocalDateTime getDateTime() {
-        return dateTime;
+    public LocalDate getDateTime() {
+        return date;
     }
 
-    public void setDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
+    public void setDateTime(LocalDate dateTime) {
+        this.date = dateTime;
     }
 }

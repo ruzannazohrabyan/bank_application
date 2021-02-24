@@ -18,12 +18,11 @@ public class User {
     private String email;
 
     @ManyToOne
-    private Role role = new Role(2, "USER");
+    private Role role;
 
     public User(){}
 
-    public User(int id, String firstName, String lastName, String password, String email) {
-        this.id = id;
+    public User(String firstName, String lastName, String password, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
