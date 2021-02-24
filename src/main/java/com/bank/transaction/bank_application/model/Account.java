@@ -13,6 +13,9 @@ public class Account {
     @Column
     private double balance;
 
+    @Column(name = "frozen_amount")
+    private double frozenAmount;
+
     @ManyToOne
     private User cardHolder;
 
@@ -38,6 +41,14 @@ public class Account {
 
     public void setBalance(double balance) {
         this.balance = balance;
+    }
+
+    public double getFrozenAmount() {
+        return frozenAmount;
+    }
+
+    public void setFrozenAmount(double frozenAmount) {
+        this.frozenAmount = frozenAmount;
     }
 
     public User getCardHolder() {
